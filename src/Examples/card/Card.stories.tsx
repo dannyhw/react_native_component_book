@@ -7,7 +7,7 @@ import {
   useKnobState,
 } from '../../context/KnobContext';
 import {createStory} from '../../CreateStory';
-import {Panel} from '../panel/Panel';
+import {Panel} from '../../components/panel/Panel';
 import Card from './Card';
 
 const cardAction = 'card-pressed';

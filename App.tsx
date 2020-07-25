@@ -12,8 +12,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {ButtonStories} from './src/components/button/Buttons.stories';
-import {CardStories} from './src/components/card/Card.stories';
+import {ButtonStories} from './src/Examples/button/Buttons.stories';
+import {CardStories} from './src/Examples/card/Card.stories';
 
 const Drawer = createDrawerNavigator();
 

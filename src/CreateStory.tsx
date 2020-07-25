@@ -1,10 +1,10 @@
 import React, {ComponentType} from 'react';
 import {ActionProvider} from './context/ActionContext';
-import {KnobProvider, KnobData} from './context/KnobContext';
+import {KnobProvider, KnobBuilderParam} from './context/KnobContext';
 
 type CreateStory = {
   actionNames: string[];
-  knobs: KnobData[];
+  knobs: KnobBuilderParam[];
   Component: ComponentType<any>;
 };
 
