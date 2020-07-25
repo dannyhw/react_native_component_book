@@ -95,6 +95,7 @@ export const Panel = ({}) => {
 const styles = StyleSheet.create({
   picker: {flex: 1},
   textInput: {
+    flex: 1,
     backgroundColor: 'white',
     borderRadius: 4,
     padding: 8,
