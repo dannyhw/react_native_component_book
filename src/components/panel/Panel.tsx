@@ -1,12 +1,12 @@
 import React from 'react';
-import {View, StyleSheet, Text, Switch} from 'react-native';
+import {View, StyleSheet, Text, Switch, TextInput} from 'react-native';
 import {useActionState} from '../../context/ActionContext';
 import {
   useKnobState,
   KnobTypes,
   useKnobUpdateValue,
 } from '../../context/KnobContext';
-import {TextInput} from 'react-native-gesture-handler';
+import {Picker, PickerIOS} from '@react-native-community/picker';
 
 export const Panel = ({}) => {
   const actions = useActionState();
@@ -26,47 +26,74 @@ export const Panel = ({}) => {
           </View>
         );
       })}
-      {Object.entries(knobs).map(([name, {type, defaultValue, value}]) => {
-        // TODO: make this use a component or something else that isn't a list a of ifs
-        if (type === KnobTypes.text) {
-          return (
-            <View style={styles.panelRow} key={name}>
-              <View style={styles.actionContainer}>
-                <View style={styles.actionColumn}>
-                  <Text style={styles.actionName}>{name}</Text>
-                </View>
-                <TextInput
-                  defaultValue={defaultValue}
-                  onChangeText={(text) => knobUpdate(name, text)}
-                  style={styles.textInput}
-                />
-              </View>
+      {Object.entries(knobs).map(
+        ([name, {type, defaultValue, value, options}]) => {
+          const nameElement = (
+            <View style={styles.actionColumn}>
+              <Text style={styles.actionName}>{name}</Text>
             </View>
           );
-        }
 
-        if (type === KnobTypes.boolean) {
-          return (
-            <View style={styles.panelRow} key={name}>
-              <View style={styles.actionContainer}>
-                <View style={styles.actionColumn}>
-                  <Text style={styles.actionName}>{name}</Text>
+          // TODO: make this use a component or something else that isn't a list a of ifs
+          if (type === KnobTypes.text) {
+            return (
+              <View style={styles.panelRow} key={name}>
+                <View style={styles.actionContainer}>
+                  {nameElement}
+                  <TextInput
+                    defaultValue={defaultValue}
+                    onChangeText={(text) => knobUpdate(name, text)}
+                    style={styles.textInput}
+                  />
                 </View>
-                <Switch
-                  value={value}
-                  onValueChange={() => knobUpdate(name, !value)}
-                />
               </View>
-            </View>
-          );
-        }
-        return <></>;
-      })}
+            );
+          }
+
+          if (type === KnobTypes.boolean) {
+            return (
+              <View style={styles.panelRow} key={name}>
+                <View style={styles.actionContainer}>
+                  {nameElement}
+                  <Switch
+                    value={value}
+                    onValueChange={() => knobUpdate(name, !value)}
+                  />
+                </View>
+              </View>
+            );
+          }
+
+          if (type === KnobTypes.select && options !== undefined) {
+            const selected = options.findIndex((v) => value === v.value);
+
+            return (
+              <View style={styles.panelRow} key={name}>
+                <View style={styles.actionContainer}>
+                  {nameElement}
+                  <PickerIOS
+                    selectedValue={selected}
+                    onValueChange={(_newValue, index) => {
+                      knobUpdate(name, options[index].value);
+                    }}
+                    style={styles.picker}>
+                    {options.map(({label}, index) => (
+                      <Picker.Item key={label} label={label} value={index} />
+                    ))}
+                  </PickerIOS>
+                </View>
+              </View>
+            );
+          }
+          return <></>;
+        },
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  picker: {flex: 1},
   textInput: {
     backgroundColor: 'white',
     borderRadius: 4,
@@ -91,10 +118,11 @@ const styles = StyleSheet.create({
   container: {
     position: 'absolute',
     bottom: 0,
-    height: 200,
+
     backgroundColor: 'white',
     width: '100%',
     padding: 16,
+
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: '#b0bec5',
   },

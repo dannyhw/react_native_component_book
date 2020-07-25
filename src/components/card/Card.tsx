@@ -8,13 +8,6 @@ import {
   ViewStyle,
 } from 'react-native';
 
-interface CardProps {
-  children: React.ReactNode;
-  title: string;
-  onPress: () => void;
-  style?: StyleProp<ViewStyle>;
-}
-
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
@@ -32,22 +25,56 @@ const styles = StyleSheet.create({
 
     elevation: 2,
   },
+  lightCard: {
+    backgroundColor: 'white',
+  },
+  darkCard: {
+    backgroundColor: '#37474f',
+  },
   content: {},
   title: {
     marginBottom: 16,
     fontSize: 18,
     fontWeight: 'bold',
   },
+  lightText: {
+    color: 'white',
+  },
+  darkText: {
+    color: 'black',
+  },
 });
 
-const Card = ({children, title, onPress, style}: CardProps) => {
+type CardProps = {
+  children: React.ReactNode;
+  title: string;
+  onPress: () => void;
+  style?: StyleProp<ViewStyle>;
+  contentStyle?: StyleProp<ViewStyle>;
+  dark?: boolean;
+};
+
+const Card = ({
+  children,
+  title,
+  onPress,
+  style,
+  dark,
+  contentStyle,
+}: CardProps) => {
   return (
     <TouchableOpacity
       onPress={onPress}
       activeOpacity={0.8}
-      style={[styles.container, style]}>
-      <Text style={styles.title}>{title}</Text>
-      <View style={styles.content}>{children}</View>
+      style={[
+        styles.container,
+        dark ? styles.darkCard : styles.lightCard,
+        style,
+      ]}>
+      <Text style={[styles.title, dark ? styles.lightText : styles.darkText]}>
+        {title}
+      </Text>
+      <View style={[styles.content, contentStyle]}>{children}</View>
     </TouchableOpacity>
   );
 };

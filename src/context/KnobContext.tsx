@@ -10,21 +10,30 @@ export enum KnobTypes {
   boolean = 'boolean',
   number = 'number',
   text = 'text',
+  select = 'select',
 }
 
-export type KnobData = {
-  type: KnobTypes;
-  name: string;
+export type SelectOptions<T> = Array<{
+  label: string;
+  value: T;
+}>;
+
+type Knob = {
   defaultValue: any;
+  options?: SelectOptions<any>;
+  type: KnobTypes;
 };
 
+export type KnobBuilderParam = {
+  name: string;
+} & Knob;
+
 type KnobItem = {
-  type: string;
-  defaultValue: any;
   value: any;
-};
+} & Knob;
+
 type KnobsMap = {
-  [key: string]: KnobItem;
+  [name: string]: KnobItem;
 };
 
 const KnobContext = createContext<KnobsMap>({});
@@ -52,14 +61,20 @@ export function useKnobUpdateValue() {
   return context;
 }
 
-type KnobProviderProps = {children: ReactNode; knobs: KnobData[]};
+type KnobProviderProps = {children: ReactNode; knobs: KnobBuilderParam[]};
 
 export function KnobProvider({children, knobs}: KnobProviderProps) {
   const [knobsMap, setKnobsMap] = useState<KnobsMap>({});
   useEffect(() => {
     const knobMap: KnobsMap = knobs.reduce(
-      (prev: KnobsMap, {type, defaultValue, name}: KnobData) => {
-        return {...prev, [name]: {type, defaultValue, value: defaultValue}};
+      (
+        prev: KnobsMap,
+        {type, defaultValue, name, options}: KnobBuilderParam,
+      ) => {
+        return {
+          ...prev,
+          [name]: {type, defaultValue, value: defaultValue, options},
+        };
       },
       {},
     );
