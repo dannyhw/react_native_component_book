@@ -1,7 +1,12 @@
 import React from 'react';
-import {StyleSheet, Text, View, StyleProp, ViewStyle} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-// import Animated from 'react-native-reanimated';
+import {
+  TouchableOpacity,
+  StyleSheet,
+  Text,
+  View,
+  StyleProp,
+  ViewStyle,
+} from 'react-native';
 
 interface CardProps {
   children: React.ReactNode;
@@ -29,7 +34,7 @@ const styles = StyleSheet.create({
   },
   content: {},
   title: {
-    marginBottom: 8,
+    marginBottom: 16,
     fontSize: 18,
     fontWeight: 'bold',
   },
