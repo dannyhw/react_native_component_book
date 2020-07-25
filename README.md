@@ -54,8 +54,8 @@ const ColorfulButtonPreview = () => {
 
 // wraps the component with the knobs and actions context and sets them up with the initial values
 export const ColorfulButtonStory = createStory({
-  colorfulButtonActionNames,
-  colorfulButtonKnobs,
+  actionNames: colorfulButtonActionNames,
+  knobs: colorfulButtonKnobs,
   Component: ColorfulButtonPreview,
 });
 
