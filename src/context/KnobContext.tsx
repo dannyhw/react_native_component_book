@@ -32,12 +32,12 @@ type KnobItem = {
   value: any;
 } & Knob;
 
-type KnobsMap = {
+export type KnobsMap = {
   [name: string]: KnobItem;
 };
 
 const KnobContext = createContext<KnobsMap>({});
-type UpdateKnobValue = (name: string, value: any) => void;
+export type UpdateKnobValue = (name: string, value: any) => void;
 const KnobUpdateValueContext = createContext<UpdateKnobValue>(
   (_name: string, _value: any) => null,
 );

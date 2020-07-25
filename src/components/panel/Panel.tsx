@@ -1,89 +1,25 @@
 import React from 'react';
-import {View, StyleSheet, Text, Switch, TextInput} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {useActionState} from '../../context/ActionContext';
-import {
-  useKnobState,
-  KnobTypes,
-  useKnobUpdateValue,
-} from '../../context/KnobContext';
-import {Picker, PickerIOS} from '@react-native-community/picker';
-import PanelRow from './PanelRow';
+import {useKnobState, useKnobUpdateValue} from '../../context/KnobContext';
+import ActionPanel from './ActionPanel';
+import KnobPanel from './KnobPanel';
 
 export const Panel = ({}) => {
   const actions = useActionState();
   const knobs = useKnobState();
   const knobUpdate = useKnobUpdateValue();
+
+  // TODO: make a tabs component to use here and show actions in a separate tab
   return (
     <View style={styles.container}>
-      {Object.entries(actions).map(([name, number]) => {
-        return (
-          <PanelRow key={name} label={name}>
-            <Text>{number}</Text>
-          </PanelRow>
-        );
-      })}
-      {Object.entries(knobs).map(
-        ([name, {type, defaultValue, value, options}]) => {
-          // TODO: make this use a component or something else that isn't a list a of ifs
-          if (type === KnobTypes.text) {
-            return (
-              <PanelRow key={name} label={name}>
-                <TextInput
-                  defaultValue={defaultValue}
-                  onChangeText={(text) => knobUpdate(name, text)}
-                  style={styles.textInput}
-                />
-              </PanelRow>
-            );
-          }
-
-          if (type === KnobTypes.boolean) {
-            return (
-              <PanelRow key={name} label={name}>
-                <Switch
-                  value={value}
-                  onValueChange={() => knobUpdate(name, !value)}
-                />
-              </PanelRow>
-            );
-          }
-
-          if (type === KnobTypes.select && options !== undefined) {
-            const selected = options.findIndex((v) => value === v.value);
-
-            return (
-              <PanelRow key={name} label={name}>
-                <PickerIOS
-                  selectedValue={selected}
-                  onValueChange={(_newValue, index) => {
-                    knobUpdate(name, options[index].value);
-                  }}
-                  style={styles.picker}>
-                  {options.map(({label}, index) => (
-                    <Picker.Item key={label} label={label} value={index} />
-                  ))}
-                </PickerIOS>
-              </PanelRow>
-            );
-          }
-          return <></>;
-        },
-      )}
+      <ActionPanel actions={actions} />
+      <KnobPanel knobs={knobs} knobUpdate={knobUpdate} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  picker: {flex: 1},
-  textInput: {
-    flex: 1,
-    backgroundColor: 'white',
-    borderRadius: 4,
-    padding: 8,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: '#b0bec5',
-  },
-
   container: {
     position: 'absolute',
     bottom: 0,
