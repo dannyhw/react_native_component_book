@@ -1,13 +1,10 @@
 import React from 'react';
 import {Text} from 'react-native';
-import {ActionsMap} from 'src/context/ActionContext';
+import {useActionState} from '../../context/ActionContext';
 import PanelRow from './PanelRow';
 
-interface ActionPanelProps {
-  actions: ActionsMap;
-}
-
-const ActionPanel = ({actions}: ActionPanelProps) => {
+const ActionPanel = () => {
+  const actions = useActionState();
   return (
     <>
       {Object.entries(actions).map(([name, number]) => {

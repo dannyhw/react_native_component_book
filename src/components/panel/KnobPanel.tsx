@@ -1,15 +1,16 @@
-import * as React from 'react';
+import React from 'react';
 import {StyleSheet, TextInput, Switch} from 'react-native';
 import PanelRow from './PanelRow';
 import {Picker} from '@react-native-community/picker';
-import {KnobTypes, KnobsMap, UpdateKnobValue} from '../../context/KnobContext';
+import {
+  KnobTypes,
+  useKnobState,
+  useKnobUpdateValue,
+} from '../../context/KnobContext';
 
-interface KnobPanelProps {
-  knobs: KnobsMap;
-  knobUpdate: UpdateKnobValue;
-}
-
-const KnobPanel = ({knobUpdate, knobs}: KnobPanelProps) => {
+const KnobPanel = () => {
+  const knobs = useKnobState();
+  const knobUpdate = useKnobUpdateValue();
   return (
     <>
       {Object.entries(knobs).map(
