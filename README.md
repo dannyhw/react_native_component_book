@@ -14,6 +14,8 @@ In this example a folder with different button components has a "buttons" story 
 // placeholder for an npm package that could exist
 import {createStory, useActionUpdate, useKnobState, Panel} from 'rn-component-book';
 
+import {ColorfulButton} from "./colorful/ColorfulButton"
+
 const colorfulButtonAction = 'pressed';
 
 const colorfulButtonKnobs = [
