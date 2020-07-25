@@ -40,14 +40,14 @@ type KnobComponentMap = {
 export function useKnobState() {
   const context = React.useContext(KnobContext);
   if (context === undefined) {
-    throw new Error('useCountState must be used within a ActionProvider');
+    throw new Error('useCountState must be used within a KnobProvider');
   }
   return context;
 }
 export function useKnobUpdateValue() {
   const context = React.useContext(KnobUpdateValueContext);
   if (context === undefined) {
-    throw new Error('useCountDispatch must be used within a ActionProvider');
+    throw new Error('useCountDispatch must be used within a KnobProvider');
   }
   return context;
 }

@@ -6,9 +6,9 @@ import {Panel} from '../panel/Panel';
 import ColorfulButton from './colorful/ColorfulButton';
 import {createStory} from '../../CreateStory';
 
-const pressedActionKey = 'pressed';
-
-const knobs = [
+const colorfulButtonAction = 'colorful-pressed';
+const colorfulButtonActionNames = [colorfulButtonAction];
+const colorfulButtonKnobs = [
   {
     name: 'buttonText',
     defaultValue: 'colorful',
@@ -21,6 +21,11 @@ const knobs = [
   },
 ];
 
+const styles = StyleSheet.create({
+  container: {flex: 1, alignItems: 'center', justifyContent: 'center'},
+  text: {color: 'white'},
+});
+
 const ColorfulButtonPreview = () => {
   const updateAction = useActionUpdate();
   const {buttonText, disabled} = useKnobState();
@@ -28,7 +33,7 @@ const ColorfulButtonPreview = () => {
   return (
     <View style={styles.container}>
       <ColorfulButton
-        onPress={() => updateAction(pressedActionKey)}
+        onPress={() => updateAction(colorfulButtonAction)}
         disabled={disabled?.value}>
         <Text style={styles.text}>{colorfulText}</Text>
       </ColorfulButton>
@@ -37,16 +42,9 @@ const ColorfulButtonPreview = () => {
   );
 };
 
-const actionNames = [pressedActionKey];
-
-const styles = StyleSheet.create({
-  container: {flex: 1, alignItems: 'center', justifyContent: 'center'},
-  text: {color: 'white'},
-});
-
 export const ColorfulButtonStory = createStory({
-  actionNames,
-  knobs,
+  actionNames: colorfulButtonActionNames,
+  knobs: colorfulButtonKnobs,
   Component: ColorfulButtonPreview,
 });
 

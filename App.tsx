@@ -13,6 +13,7 @@ import {
   View,
 } from 'react-native';
 import {ButtonStories} from './src/components/button/Buttons.stories';
+import {CardStories} from './src/components/card/Card.stories';
 
 const Drawer = createDrawerNavigator();
 
@@ -24,7 +25,7 @@ function getScreen({component: Component}: {component: ComponentType<any>}) {
   );
 }
 
-const screens = [...ButtonStories];
+const screens = [...ButtonStories, ...CardStories];
 
 const Home = ({}) => {
   const navigation = useNavigation();
