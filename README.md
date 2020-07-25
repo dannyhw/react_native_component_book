@@ -63,3 +63,5 @@ export const ButtonStories = [
 ];
 
 ```
+
+![example](https://media.giphy.com/media/TJguR1LloqSAdzpguK/giphy.gif)
