@@ -12,7 +12,7 @@ In this example a folder with different button components has a "buttons" story 
 // Buttons.stories.tsx
 
 // placeholder for an npm package that could exist
-import {createStory, useActionUpdate, useKnobState} from 'rn-component-book';
+import {createStory, useActionUpdate, useKnobState, Panel} from 'rn-component-book';
 
 const colorfulButtonAction = 'pressed';
 
@@ -65,3 +65,15 @@ export const ButtonStories = [
 ```
 
 ![example](https://media.giphy.com/media/TJguR1LloqSAdzpguK/giphy.gif)
+
+
+# TODO
+
+- Tests
+- Make actions more generic and instead of having a counter, do something like the storybook actions
+- Improve knobs implementation in panel component
+- separate componentbook specific code into one section of the codebase that will enable imports of the main things all from the same place
+- add more knobs
+- add styling
+- convert panel into something more useful, maybe have it extend out further on drag and add a scroll view inside it
+- reduce boilerplate
