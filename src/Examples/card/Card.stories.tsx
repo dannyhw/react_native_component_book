@@ -1,5 +1,6 @@
 import React, {ComponentType} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Panel} from '../../components/panel/Panel';
 import {useActionUpdate} from '../../context/ActionContext';
 import {
   KnobTypes,
@@ -7,7 +8,6 @@ import {
   useKnobState,
 } from '../../context/KnobContext';
 import {createStory} from '../../CreateStory';
-import {Panel} from '../../components/panel/Panel';
 import Card from './Card';
 
 const cardAction = 'card-pressed';
@@ -51,7 +51,11 @@ const styles = StyleSheet.create({
     width: 50,
     borderRadius: 25,
   },
-  container: {flex: 1, alignItems: 'center', marginTop: 56},
+  container: {
+    alignItems: 'center',
+    marginTop: 56,
+    flex: 1,
+  },
   text: {color: 'white'},
 });
 
