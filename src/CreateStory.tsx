@@ -8,6 +8,7 @@ import {
   Platform,
   StyleSheet,
 } from 'react-native';
+import {getStatusBarHeight} from './StatusBarHeight';
 
 type CreateStory = {
   actionNames: string[];
@@ -18,8 +19,9 @@ type CreateStory = {
 export const createStory = ({actionNames, knobs, Component}: CreateStory) => {
   return () => (
     <KeyboardAvoidingView
-      behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
-      style={styles.flexone}>
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.flexone}
+      keyboardVerticalOffset={getStatusBarHeight(true)}>
       <Pressable style={styles.flexone} onPress={Keyboard.dismiss}>
         <ActionProvider actionNames={actionNames}>
           <KnobProvider knobs={knobs}>
