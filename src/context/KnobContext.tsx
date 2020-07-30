@@ -28,7 +28,7 @@ export type KnobBuilderParam = {
   name: string;
 } & Knob;
 
-type KnobItem = {
+export type KnobItem = {
   value: any;
 } & Knob;
 
