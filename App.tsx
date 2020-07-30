@@ -14,6 +14,8 @@ import {
 } from 'react-native';
 import {ButtonStories} from './src/Examples/button/Buttons.stories';
 import {CardStories} from './src/Examples/card/Card.stories';
+import PickerStories from './src/Examples/picker/Picker.stories';
+import RadioStories from './src/Examples/radio/Radio.stories';
 
 const Drawer = createDrawerNavigator();
 
@@ -25,7 +27,12 @@ function getScreen({component: Component}: {component: ComponentType<any>}) {
   );
 }
 
-const screens = [...ButtonStories, ...CardStories];
+const screens = [
+  ...ButtonStories,
+  ...CardStories,
+  ...PickerStories,
+  ...RadioStories,
+];
 
 const Home = ({}) => {
   const navigation = useNavigation();
